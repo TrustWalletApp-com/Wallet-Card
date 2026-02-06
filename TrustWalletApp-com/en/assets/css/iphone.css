@@ -1,0 +1,113 @@
+/* Контейнер */
+.container {
+  width: 100%;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: center;
+}
+.steps-section {
+  padding-top: 0;
+  margin-top: -95px;
+}
+/* Заголовок */
+.section-title {
+  text-align: center;
+  width: 100%;
+  color: #1a1a1a;
+  font-weight: 700;
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+  font-size: clamp(1.2rem, 5vw, 2.5rem);
+}
+/* Горизонтальная прокрутка */
+.full-screen-section {
+  display: flex;
+  justify-content: center;
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin-top: 0;
+  padding: 1rem;
+  gap: 1.5rem;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  /* Скрываем скроллбар */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.full-screen-section::-webkit-scrollbar {
+  display: none;
+}
+/* 🔥 Обёртка шага */
+.step-wrapper {
+  flex: 0 0 auto;
+  width: clamp(140px, 30%, 220px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/* Подписи */
+.step-label {
+  text-align: center;
+  color: #666;
+  font-weight: 600;
+  height: 60px; /* 🔥 Фиксированная высота */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  line-height: 1.3;
+  padding: 0 2.5rem;
+  font-size: clamp(0.7rem, 2vw, 1rem);
+}
+/* Элемент с изображением */
+.svg-item {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* Изображения */
+.svg-item img,
+.svg-item svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+/* ---- Планшеты ---- */
+@media (min-width: 768px) {
+  .container {
+    padding: 0 2rem;
+  }
+  
+  .full-screen-section {
+    justify-content: center;
+    padding: 1.5rem;
+    gap: 2rem;
+  }
+  
+  .step-wrapper {
+    width: clamp(160px, 32%, 240px);
+  }
+  
+  .step-label {
+    height: 70px; /* 🔥 Фиксированная высота для планшетов */
+    margin-bottom: 1rem;
+  }
+}
+/* ---- Десктопы ---- */
+@media (min-width: 1024px) {
+  .full-screen-section {
+    justify-content: center;
+    padding: 2rem;
+  }
+  
+  .step-wrapper {
+    width: clamp(180px, 30%, 260px);
+  }
+  
+  .step-label {
+    height: 80px; /* 🔥 Фиксированная высота для десктопов */
+    margin-bottom: 2.5rem;
+  }
+}
